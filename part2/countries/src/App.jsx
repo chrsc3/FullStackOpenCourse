@@ -50,7 +50,6 @@ const Pais = ({ pais, clima }) => {
   );
   return <div>{pais && Datos(pais)}</div>;
 };
-s;
 
 const App = () => {
   const [value, setValue] = useState("");
@@ -91,7 +90,9 @@ const App = () => {
         });
       axios
         .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${filterName}&appid=976b56836cb04cb5cdecc1cc5fb04390&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${filterName}&appid=${
+            import.meta.env.VITE_SOME_KEY
+          }&units=metric`
         )
         .then((response) => {
           setClima(response.data);
@@ -99,18 +100,6 @@ const App = () => {
       console.log(clima);
     }
   }, [filterName]);
-  useEffect(() => {
-    if (pais) {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${pais.latlng[0]}&lon=${pais.latlng[1]}&appid=976b56836cb04cb5cdecc1cc5fb04390&units=metric`
-        )
-        .then((response) => {
-          setClima(response.data);
-        });
-      console.log(clima);
-    }
-  }, [pais]);
   useEffect(() => {
     axios
       .get(`https://studies.cs.helsinki.fi/restcountries/api/all`)
